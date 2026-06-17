@@ -5,7 +5,7 @@ class DB_connection:
         "host" : "localhost",
         "user" : "root",
         "password" : "1234",
-        "database" : "db_Intelligence"
+        "database" : "Intelligence_db"
     }):
         self.config = config
         self.connection = None
@@ -17,7 +17,7 @@ class DB_connection:
 
     def create_database(self):
         self.cursor.execute("""
-create database if not exists db_Intelligence
+create database if not exists Intelligence_db
 """)
 
     def create_tables(self):
