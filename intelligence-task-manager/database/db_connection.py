@@ -40,7 +40,7 @@ CREATE Table if NOT exists missions(
     location VARCHAR(100) NOT NULL,
     difficulty INT,
     importance INT,
-    status ENUM("NEW", "ASSIGNED", "PROGRESS_IN", "COMPLETED", "FAILED", "CANCELLED") DEFAULT "NEW",
+    status ENUM("NEW", "ASSIGNED", "IN_PROGRESS", "COMPLETED", "FAILED", "CANCELLED") DEFAULT "NEW",
     risk_level ENUM("LOW", "MEDIUM", "HIGH", "CRITICAL"),
     assigned_agent_id INT DEFAULT NULL
     )

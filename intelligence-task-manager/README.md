@@ -176,3 +176,82 @@ tables_create():
 ```
 docker run -d --name intelligence-mysql -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=Intelligence_db -p 3306:3306 mysql:8.0
 ```
+
+# עדכון README — חלק יום ב׳
+
+## 7. רשימת Endpoints
+
+### agents
+```
+post /agents
+get /agents
+get /agents/{id}
+put /agents/{id}
+put /agents/{id}/deactivate
+get /agents/{id}/performance
+```
+### missions
+```
+post /missions
+get /missions
+get /missions/{id}
+put /missions/{id}/assign/{agent_id}
+put /missions/{id}/start
+put /missions/{id}/complete
+put /missions/{id}/fail
+put /missions/{id}/cancel
+```
+### reports
+```
+get /reports/summary
+get /reports/missions-by-status
+get /reports/top-agent
+```
+## 8. זרימת המערכת
+```
+admin
+    agents
+        agent_create
+        agents_all_get
+        get_agent_by_id
+        update_agent
+        agent_deactivate
+        completed_increment
+        failed_increment
+        get_agent_performance
+        agents_active_count
+    missions
+        mission_create
+        missions_all_get
+        get_mission_by_id
+        assign_mission
+        update_mission_status
+        get_open_missions_by_agent
+        missions_all_count
+        status_by_count
+        missions_open_count
+        count_critical_missions
+    reports
+        get_general_system_report
+        get_missions_by_status
+        get_top_agent
+```
+## 9. הוראות הרצה מעודכן
+
+### 1.
+לעשות clone: 
+```
+https://github.com/yossishlos/intelligence-task-manager.git
+```
+### 2.
+להריץ פקודת docker run:
+```
+docker run -d --name intelligence-mysql -e MYSQL_ROOT_PASSWORD=1234 -e MYSQL_DATABASE=Intelligence_db -p 3306:3306 mysql:8.0
+```
+### 3.
+להתקין את מה שיש בrequirements
+### 4.
+כדי להפעיל את השרת צריך לכתוב את פקודת:
+```
+uvicorn main:app --reload
+```
