@@ -9,8 +9,8 @@ class AgentDB:
     def create_agent(self, data: dict):
         try:
             self.db.cursor.execute("""
-INSERT INTO agents (name, specialty, is_active, agent_rank) VALUES (%s, %s, %s, %s)
-""", (data["name"], data["specialty"], data["is_active"], data["agent_rank"]))
+INSERT INTO agents (name, specialty, agent_rank) VALUES (%s, %s, %s)
+""", (data["name"], data["specialty"], data["agent_rank"]))
             self.db.connection.commit()
             self.db.cursor.execute("""
 select * from agents where name = %s
@@ -101,32 +101,9 @@ select completed_missions, failed_missions, from agents where id = %s
     def count_active_agents(self):
         try:
             self.db.cursor.execute("""
-select
+select count(is_active) from agents
 """)
             result = self.db.cursor.fetchall()
             return result
         except Exception as e:
             print(e)
-
-
-
-
-
-
-
-
-
-
-
-
-
-db = DB_connection()
-
-adb = AgentDB(db)
-
-data = {"name" : "yossi", "specialty" : "a", "is_active" : False, "agent_rank" : "Commander"}
-update_data = {"name" : "shoshi", "specialty" : "b", "is_active" : True, "agent_rank" : "Senior"}
-print(adb.create_agent(data=data))
-print(adb.get_all_agents())
-print(adb.get_agent_by_id(14))
-print(adb.update_agent(id=13, data=update_data))
