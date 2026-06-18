@@ -1,4 +1,4 @@
-from db_connection import DB_connection
+from database.db_connection import DB_connection
 
 class MissionDB:
     def __init__(self, db: DB_connection):
@@ -76,7 +76,7 @@ select * from missions where status = ASSIGNED or status = IN_PROGRESS and id = 
             print(e)
 
     
-    def missions_all_count(self):
+    def count_all_missions(self):
         try:
             self.db.cursor.execute("""
 select count(*) from missions
@@ -126,7 +126,7 @@ select count(*) from missions where status = CRITICAL
 select max(completed_missions) from agents
 """)
             the_max = self.db.cursor.fetchall()
-
+            
             self.db.cursor.execute("""
 select * from missions where completed_missions = %s
 """,(the_max,))

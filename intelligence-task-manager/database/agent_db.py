@@ -1,4 +1,4 @@
-from db_connection import DB_connection
+from database.db_connection import DB_connection
 
 class AgentDB:
     def __init__(self, db: DB_connection):
@@ -46,15 +46,15 @@ select * from agents where id = %s
     def update_agent(self, id: int, data: dict):
         try:
             self.db.cursor.execute("""
-update agents set name = %s, specialty = %s, is_active = %s, agent_rank = %s where id = %s
-""", (data["name"], data["specialty"], data["is_active"], data["agent_rank"], id))
+update agents set name = %s, specialty = %s, agent_rank = %s where id = %s
+""", (data["name"], data["specialty"], data["agent_rank"], id))
             self.db.connection.commit()
             return True
         except Exception as e:
             print(e)
     
 
-    def deactivate_agent(self, id):
+    def deactivate_agent(self, id: int):
         try:
             self.db.cursor.execute("""
 update agents set is_active = False where id = %s
@@ -65,7 +65,7 @@ update agents set is_active = False where id = %s
             print(e)
 
     
-    def increment_completed(self, id):
+    def increment_completed(self, id: int):
         try:
             self.db.cursor.execute("""
 update agents set completed_missions = completed_missions + 1 where id = %s
@@ -76,7 +76,7 @@ update agents set completed_missions = completed_missions + 1 where id = %s
             print(e)
         
     
-    def increment_failed(self, id):
+    def increment_failed(self, id: int):
         try:
             self.db.cursor.execute("""
 update agents set failed_missions = failed_missions + 1 where id = %s
@@ -87,10 +87,10 @@ update agents set failed_missions = failed_missions + 1 where id = %s
             print(e)
 
     
-    def get_agent_performance(self, id):
+    def get_agent_performance(self, id: int):
         try:
             self.db.cursor.execute("""
-select completed_missions, failed_missions, from agents where id = %s
+select completed_missions, failed_missions from agents where id = %s
 """, (id,))
             result = self.db.cursor.fetchall()
             return result

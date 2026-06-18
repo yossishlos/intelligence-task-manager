@@ -1,23 +1,13 @@
+from fastapi import FastAPI
+from routes import agent_routes, mission_routes, report_routes
+from database.db_connection import DB_connection
 
+app = FastAPI()
+app.include_router(agent_routes.router)
+app.include_router(mission_routes.router)
+app.include_router(report_routes.router)
 
-
-
-
-
-
-
-
-
-
-
-
-# db = DB_connection()
-
-# adb = AgentDB(db)
-
-# data = {"name" : "yossi", "specialty" : "a", "is_active" : False, "agent_rank" : "Commander"}
-# update_data = {"name" : "shoshi", "specialty" : "b", "is_active" : True, "agent_rank" : "Senior"}
-# print(adb.create_agent(data=data))
-# print(adb.get_all_agents())
-# print(adb.get_agent_by_id(14))
-# print(adb.update_agent(id=13, data=update_data))
+db = DB_connection()
+db.get_connection()
+db.create_database()
+db.create_tables()
